@@ -32,7 +32,7 @@
 ## Notes
 
 - All items pass. The spec deliberately keeps implementation choices (Gradio, Python `core/`,
-  Hugging Face Space, provider names) out of the requirements — those live in the design docs
+  Cloud Run, provider names) out of the requirements — those live in the design docs
   (`docs/phase-1-design.md`) and will be formalized in `/speckit-plan`.
 - Success criteria are stated as user-facing/verifiable outcomes (grounded-answer rate,
   refusal rate, public reachability) rather than technical metrics.

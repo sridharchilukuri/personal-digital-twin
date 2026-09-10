@@ -21,13 +21,13 @@ A visitor opens a public URL, chats with the twin, and gets answers that are:
 - **Provider-agnostic** — the LLM sits behind one interface so Claude ↔ OpenAI can be swapped.
 - **Evaluated** — a committed eval suite asserts both correct grounded answers and correct
   refusals, and runs on every change.
-- **Live** — deployed as a free Hugging Face **Gradio Space**.
+- **Live** — deployed as a scale-to-zero container on **Google Cloud Run** (free tier).
 
 **Success criteria (product quality):**
 1. Twin correctly answers ≥90% of in-corpus eval questions.
 2. Twin correctly *declines* 100% of deliberately out-of-corpus eval questions
    (zero hallucinations tolerated).
-3. Reachable at a public Hugging Face Space URL.
+3. Reachable at a public Cloud Run URL.
 4. Everything is versioned in git with a clean history; no secret ever committed.
 
 ---
@@ -40,7 +40,7 @@ the UI can be swapped later without touching the substance.
 
 ```
         ┌──────────────────────────────────────────────┐
-        │  Hugging Face Space (free, Gradio SDK)        │
+        │  Cloud Run container (scale-to-zero, free tier)│
         │                                                │
         │   app.py  (Gradio ChatInterface — thin shell) │
         │        │ calls                                 │
@@ -50,7 +50,8 @@ the UI can be swapped later without touching the substance.
         │        ▼                                        │
         │   corpus/*.md  (context-stuffed, no RAG)       │
         │                                                │
-        │   Secrets (LLM key) ← HF Space Secrets (env)   │
+        │   Secrets (LLM key) ← Google Secret Manager    │
+        │                        (env; local: .env)      │
         └────────────────────────────────────────────────┘
 ```
 
@@ -62,8 +63,9 @@ the UI can be swapped later without touching the substance.
 
 ### 3.1 Corpus (`/corpus/`)
 - **What it does:** Holds the source-of-truth about the subject as plain Markdown.
-- **Files:** `resume.md`, `linkedin.md`, `about.md`, and `self_interview.md` — 50–100
-  first-person Q&A pairs (**the cold-start unlock**; this is what lets the twin converse).
+- **Files:** `resume.md`, `linkedin.md`, `about.md`, and `self_interview.md` — 10–20
+  first-person Q&A pairs (**the cold-start unlock**; this is what lets the twin converse;
+  grow over time).
 - **Dependency:** none. It's data.
 - **Note:** The *entire* corpus is stuffed into the system prompt (context-stuffing).
   **No RAG.** Keep it within the model's context budget (target ≤ ~15k tokens). Outgrowing
@@ -81,7 +83,7 @@ the UI can be swapped later without touching the substance.
 ### 3.4 `core/llm_client.py` — provider-agnostic interface
 - **What it does:** Exposes one streaming method hiding the vendor; provider + key from env
   (`LLM_PROVIDER`, `LLM_API_KEY`).
-- **Depends on:** the vendor SDK + env vars (which come from HF Space Secrets in prod).
+- **Depends on:** the vendor SDK + env vars (from Google Secret Manager in prod; `.env` locally).
 - **Why:** keeps the system portable/testable and lets a live Claude↔OpenAI swap be shown.
 
 ### 3.5 `app.py` — Gradio shell (the throwaway UI)
@@ -133,9 +135,9 @@ Validated, not assumed: the out-of-corpus eval cases are the proof.
 | Agent core | **Python** (`core/` package) | UI-agnostic; the portable asset |
 | LLM | **Provider-agnostic**, configurable | Claude / OpenAI behind `LLMClient` |
 | UI | **Gradio** (`gr.ChatInterface`) | Thin, all-Python, streaming built in; throwaway |
-| Hosting | **Hugging Face Space (Gradio SDK)** | Free; sleeps when idle; public URL |
+| Hosting | **Google Cloud Run** (container) | Free tier; scales to zero; public HTTPS URL |
 | Corpus | **Markdown in git** | Context-stuffed; no vector DB |
-| Secrets | **HF Space Secrets → env vars** | Never in code or git |
+| Secrets | **Google Secret Manager → env vars** (local: `.env`) | Never in code or git |
 | Tests | **pytest** + eval runner | Run locally + CI before each push |
 
 ---
@@ -146,7 +148,7 @@ Validated, not assumed: the out-of-corpus eval cases are the proof.
   corpus loader.
 - **Eval suite:** the 20–30 grounded/refusal cases — the headline test. Run locally and in
   CI on every change.
-- **Manual smoke:** a short scripted walkthrough before each push to the Space.
+- **Manual smoke:** a short scripted walkthrough before each deploy.
 - Tests-first where practical (write eval cases / unit tests before wiring implementation).
 
 ---
@@ -154,12 +156,14 @@ Validated, not assumed: the out-of-corpus eval cases are the proof.
 ## 8. Deployment (Phase 1)
 
 1. Author `corpus/*.md` (the real work — especially `self_interview.md`).
-2. Create a Hugging Face **Space** → Gradio SDK; `README.md` YAML header configures it
-   (`sdk: gradio`, `app_file: app.py`).
-3. In **Space Settings → Secrets**, add `LLM_PROVIDER` and `LLM_API_KEY` (arrive as env
-   vars; never in code).
-4. `git push` the repo to the Space; HF builds and serves it at a public URL.
-5. Locally (and in CI), run `evals/run_evals.py` before every push.
+2. Containerize: a `Dockerfile` runs `app.py`; Gradio listens on `0.0.0.0:$PORT` (Cloud Run
+   sets `$PORT`, default 8080).
+3. Store secrets in **Google Secret Manager** (`LLM_API_KEY`); `LLM_PROVIDER` can be a plain
+   env var. Grant the Cloud Run service account `secretmanager.secretAccessor`.
+4. Deploy: `gcloud run deploy digital-twin --source . --allow-unauthenticated
+   --set-env-vars=LLM_PROVIDER=... --set-secrets=LLM_API_KEY=LLM_API_KEY:latest`. Cloud Run
+   builds the container and serves it at a public HTTPS URL.
+5. Locally (and in CI), run `evals/run_evals.py` before every deploy.
 
 ---
 
@@ -179,8 +183,8 @@ Not building these now — only what's needed for a useful, live, grounded twin:
 
 | Risk | Mitigation |
 |---|---|
-| **Thin corpus → hollow twin** (biggest risk) | Author `self_interview.md` (50–100 Q&A) *before/with* the code. |
+| **Thin corpus → hollow twin** (biggest risk) | Author `self_interview.md` (10–20 Q&A) *before/with* the code. |
 | Hallucination on out-of-scope Qs | Honesty guardrail + out-of-corpus eval cases gating every change. |
-| Leaked API keys | Secrets only in HF Space Secrets / local `.env` (gitignored); never committed. |
+| Leaked API keys | Secrets only in Google Secret Manager / local `.env` (gitignored); never committed. |
 | UI logic leaking into `core/` | Keep `core/` free of any Gradio import — it must stay UI-agnostic and portable. |
 | Corpus outgrows context | Track token count; revisit retrieval only if/when it exceeds the budget. |

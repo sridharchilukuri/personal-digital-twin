@@ -44,7 +44,7 @@ until Phase 1 exit criteria are met.
   corpus loader.
 - **UI:** **Gradio** (`gr.ChatInterface`) in `app.py` — a thin shell that only calls
   `core/`. Deliberately disposable.
-- **Hosting:** free **Hugging Face Space** (Gradio SDK); secrets via HF Space Secrets → env.
+- **Hosting:** **Google Cloud Run** (scale-to-zero container); secrets via **Google Secret Manager** → env. Local dev via gitignored `.env`.
 - **Corpus:** Markdown files in `corpus/`, context-stuffed into the system prompt.
   **No RAG.**
 - **Evals:** pytest + `evals/run_evals.py` — grounded-answer + refusal cases. Runs in CI.
