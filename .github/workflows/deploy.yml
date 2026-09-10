@@ -1,0 +1,48 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+      - "tests/**"
+      - ".github/workflows/ci.yml"
+  workflow_dispatch: {} # allow manual "Run workflow" from the Actions tab
+
+# Required for keyless auth (Workload Identity Federation).
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SA }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy digital-twin \
+            --source . \
+            --project "${{ vars.GCP_PROJECT_ID }}" \
+            --region "${{ vars.GCP_REGION }}" \
+            --allow-unauthenticated \
+            --set-env-vars=LLM_PROVIDER=openai,LLM_MODEL=gpt-4o \
+            --set-secrets=LLM_API_KEY=LLM_API_KEY:latest \
+            --quiet
+
+      - name: Show service URL
+        run: |
+          gcloud run services describe digital-twin \
+            --project "${{ vars.GCP_PROJECT_ID }}" \
+            --region "${{ vars.GCP_REGION }}" \
+            --format="value(status.url)"

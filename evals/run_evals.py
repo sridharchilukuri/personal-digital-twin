@@ -14,26 +14,29 @@ from pathlib import Path
 # Allow running as `python evals/run_evals.py` from the repo root.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from core import LLMError, REFUSAL_MARKER, answer  # noqa: E402
+from core import LLMError, REFUSAL_MARKER, SCOPE_MARKER, answer  # noqa: E402
 
 CASES_FILE = Path(__file__).parent / "cases.yaml"
 GROUNDED_THRESHOLD = 0.90  # SC-001
 REFUSAL_THRESHOLD = 1.00   # SC-002
 
-# Fallback phrases that also count as a refusal, in case the model paraphrases.
+# Phrases that count as a decline — either "not in corpus" or "off-topic / out of scope".
 _REFUSAL_SIGNALS = (
     REFUSAL_MARKER.lower(),
+    SCOPE_MARKER.lower(),
     "don't have that",
     "hasn't shared",
     "haven't shared",
     "don't have information",
     "no information",
     "i don't know",
+    "only here to talk about sridhar",
+    "only talk about sridhar",
 )
 
 
 def is_refusal(text: str) -> bool:
-    """True if the response reads as an honest 'I don't know', not a substantive answer."""
+    """True if the response declines (corpus-silent or off-topic) rather than answering."""
     low = text.lower()
     return any(sig in low for sig in _REFUSAL_SIGNALS)
 

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sridhar Chilukuri — Staff Engineer &amp; AI Twin</title>
+  <meta name="description" content="Sridhar Chilukuri — Staff Software Engineer. Ask my AI twin anything about my work, experience, or interests." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>
+    // Apply saved theme before first paint to avoid a flash.
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light") document.documentElement.setAttribute("data-theme", "light");
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top">
+      <img class="brand-avatar" src="/assets/sridhar.jpg" alt="" />
+      <span>Sridhar Chilukuri</span>
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a class="tab-link" href="#work">Work</a>
+      <a class="tab-link" href="#about">About</a>
+      <a class="tab-link" href="#contact">Contact</a>
+      <span class="status" title="The twin is live"><span class="dot"></span>twin online</span>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode" title="Toggle light / dark">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO: identity + live twin, full width -->
+    <section class="hero" id="hero">
+      <div class="hero-lead">
+        <p class="role"><span class="dot dot--sm"></span>Staff Software Engineer at Proofpoint</p>
+        <h1>Distributed systems, security infrastructure, and agentic AI.</h1>
+        <p class="lede">
+          I build large-scale security platforms and high-throughput backends and I'm
+          going deep on agentic AI — systems that take real actions through tools, not just
+          chat. The twin on the right answers only from what I've actually shared and it
+          says so plainly when it doesn't know.
+        </p>
+      </div>
+
+      <div class="chat" aria-label="Chat with Sridhar's AI twin">
+        <div class="chat-header">
+          <span class="dot"></span>
+          <span class="chat-title">Ask the twin</span>
+          <span class="chat-sub">grounded · honest when it doesn't know</span>
+        </div>
+        <div id="messages" class="messages">
+          <div class="msg assistant">Hi — I'm Sridhar's digital twin. Ask me about his work, projects, skills, or what he's learning right now.</div>
+        </div>
+        <div class="suggestions">
+          <button class="chip">What's Sridhar most proud of?</button>
+          <button class="chip">What tech does he work with?</button>
+          <button class="chip">What is he learning right now?</button>
+        </div>
+        <form id="chat-form" class="chat-input">
+          <input id="chat-text" type="text" autocomplete="off"
+                 aria-label="Message the twin"
+                 placeholder="Ask the twin a question…" />
+          <button id="chat-send" type="submit" aria-label="Send message">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- METRICS: full-width stats bar -->
+    <section class="metrics-bar" aria-label="Selected measured results">
+      <dl class="metrics">
+        <div class="metric">
+          <dt class="metric-num">$3.6M→&lt;$500K</dt>
+          <dd class="metric-label">annual cloud spend, re-architected</dd>
+        </div>
+        <div class="metric">
+          <dt class="metric-num">1TB+</dt>
+          <dd class="metric-label">data processed daily</dd>
+        </div>
+        <div class="metric">
+          <dt class="metric-num">100K+</dt>
+          <dd class="metric-label">transactions / second scaled</dd>
+        </div>
+        <div class="metric">
+          <dt class="metric-num">&lt;100ms</dt>
+          <dd class="metric-label">API latency at scale</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- WORK -->
+    <section id="work" class="section">
+      <div class="section-head">
+        <h2>Work</h2>
+        <p class="section-note">Over 12 years across backend, security infrastructure, and platform engineering.</p>
+      </div>
+      <div class="timeline">
+        <article class="job">
+          <div class="job-meta">
+            <h3>Proofpoint</h3>
+            <p class="role-title">Staff Software Engineer</p>
+            <p class="when">Jun 2021 – Present · Broomfield/Erie, CO</p>
+          </div>
+          <ul class="job-points">
+            <li>Architected the backend for a domain takedown platform automating threat remediation for thousands of enterprise customers.</li>
+            <li>Re-architected lookalike / brand-impersonation detection onto ECS with CLIP image embeddings — detection from days to hours, annual AWS spend $3.6M → under $500K.</li>
+            <li>Built a real-time domain intelligence pipeline into a 1B+ record PostgreSQL store, and a WHOIS API serving millions of daily requests at sub-100ms latency.</li>
+            <li>Founded and led an org-wide API working group; scaled backend services beyond 100K transactions/second.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-meta">
+            <h3>EBSCO Information Services</h3>
+            <p class="role-title">Senior Software Engineer</p>
+            <p class="when">Mar 2019 – Jun 2021 · Boulder, CO</p>
+          </div>
+          <ul class="job-points">
+            <li>Built secure, real-time license-validation APIs enforcing global subscription rules.</li>
+            <li>Led migration from a monolith to AWS serverless; ran a large-scale data migration with zero downtime.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-meta">
+            <h3>Pertan Group</h3>
+            <p class="role-title">Software Engineer</p>
+            <p class="when">Apr 2016 – Mar 2019 · Fort Collins, CO</p>
+          </div>
+          <ul class="job-points">
+            <li>Delivered mission-critical systems for government and military clients, prioritizing security and reliability (C#, WPF, TypeScript, Angular).</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-meta">
+            <h3>Winnow IT Services</h3>
+            <p class="role-title">Software Engineer</p>
+            <p class="when">2012 – 2013 · Hyderabad, India</p>
+          </div>
+          <ul class="job-points">
+            <li>Built B2B web applications and reusable, responsive UI components (ASP.NET, C#, JavaScript).</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-meta">
+            <h3>UMKC</h3>
+            <p class="role-title">M.S., Electrical Engineering</p>
+            <p class="when">2014 – 2016 · Kansas City, MO</p>
+          </div>
+          <ul class="job-points">
+            <li>Master of Science, Electrical Engineering. Graduate Assistant at the UMKC Bloch School.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section-head">
+        <h2>About</h2>
+      </div>
+      <div class="about">
+        <img class="about-photo" src="/assets/sridhar.jpg" alt="Portrait of Sridhar Chilukuri" />
+        <div class="about-body">
+          <p>
+            I'm a Staff Software Engineer based in Erie, Colorado, with over 12 years in software
+            engineering. Most of my career has been distributed backend and security
+            infrastructure — systems that process huge volumes of data reliably and cheaply. I'd
+            rather solve a problem simply than over-engineer it. Right now I'm focused on
+            <strong>agentic AI engineering</strong>: building AI that acts through tools, where
+            distributed-systems thinking meets AI.
+          </p>
+          <dl class="facts">
+            <div><dt>Location</dt><dd>Erie, Colorado</dd></div>
+            <div><dt>Languages</dt><dd>English, Telugu</dd></div>
+            <div><dt>Core stack</dt><dd>Go, AWS, PostgreSQL, Event driven Data pipelines</dd></div>
+            <div><dt>Learning</dt><dd>Agentic AI engineering</dd></div>
+            <div><dt>Outside work</dt><dd>Cricket in summer, skiing in winter, dad to two little girls</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="contact">
+        <div>
+          <h2>Get in touch</h2>
+          <p class="section-note">For anything related to distributed systems and agentic AI, or just to talk shop.</p>
+        </div>
+        <div class="links">
+          <a class="link-btn primary" href="mailto:sridharchilukuri9@gmail.com">Email me</a>
+          <a class="link-btn" href="https://www.linkedin.com/in/sridharchilukuri" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>An agentic AI twin, grounded in a curated corpus. Built by Sridhar Chilukuri.</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

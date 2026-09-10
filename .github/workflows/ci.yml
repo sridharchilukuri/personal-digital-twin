@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      # Optional: add these as GitHub Actions secrets to enable the eval gate below.
+      LLM_PROVIDER: ${{ secrets.LLM_PROVIDER || 'openai' }}
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: pytest -q
+
+      # The eval gate exercises a real LLM, so it runs only when LLM_API_KEY is set.
+      - name: Eval gate (optional)
+        if: ${{ env.LLM_API_KEY != '' }}
+        run: python evals/run_evals.py

@@ -1,0 +1,29 @@
+# Keep secrets, local env, and non-runtime files out of the container image.
+# (The image needs: app.py, core/, web/, corpus/, requirements.txt, Dockerfile.)
+
+.git/
+.gitignore
+.gcloudignore
+.dockerignore
+
+# Python local env / caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Secrets and local env — NEVER in the image
+.env
+.env.*
+
+# Source material and private notes (not needed at runtime)
+resources/
+docs/
+
+# Dev-only
+tests/
+.github/
+README.md
+CLAUDE.md

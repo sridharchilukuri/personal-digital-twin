@@ -14,11 +14,11 @@ Distributed Systems | APIs
 ## Languages
 
 - English
-- Hindi
+- Telugu
 
 ## Summary
 
-At Proofpoint, as a Staff Software Engineer with over seven years of experience in software
+At Proofpoint, as a Staff Software Engineer with over 12 years of experience in software
 engineering, I specialize in building scalable distributed systems, high-throughput APIs, and
 advanced AI-driven workflows. My work focuses on architecting secure, efficient backend
 infrastructures and real-time data pipelines that process vast volumes of security data daily
@@ -41,12 +41,12 @@ that: applying LLMs, grounding, and agentic patterns to a real, shippable produc
 - **Proofpoint** (5+ years)
   - Staff Software Engineer — July 2025 to present
   - Senior Software Engineer — June 2021 to July 2025
-- **EBSCO Information Services** — Senior Software Engineer — April 2019 to June 2021
-- **Pertan Group** — Software Engineer — February 2016 to April 2019
+- **EBSCO Information Services** — Senior Software Engineer — March 2019 to June 2021
+- **Pertan Group** — Software Engineer — April 2016 to March 2019
 - **UMKC Bloch School** — Graduate Assistant — May 2015 to December 2015
-- **Winnow IT Software Solutions** — Software Engineer — May 2012 to November 2013
+- **Winnow IT Software Solutions** — Software Developer — April 2012 to November 2013
 
 ## Education
 
 - **University of Missouri–Kansas City** — Master's degree, Electrical & Electronics
-  Engineering (2014–2015).
+  Engineering (2014–2016).

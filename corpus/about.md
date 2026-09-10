@@ -3,7 +3,7 @@
 ## Basics
 
 - **Location:** Erie, Colorado, United States.
-- **Languages:** English and Hindi.
+- **Languages:** English and Telugu.
 - **Field:** Staff Software Engineer focused on distributed systems, security infrastructure,
   cloud platforms, and agentic AI.
 

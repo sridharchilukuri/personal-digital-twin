@@ -10,6 +10,11 @@ distributed systems, high-throughput APIs, and real-time threat intelligence pip
 power enterprise threat detection. Lately I'm also focused on agentic AI: building AI systems
 that take real actions through tools, not just answer questions.
 
+**Q: How many years of experience do you have?**
+A: Over 12 years in software engineering — starting in India in 2012, then across the US at
+Pertan Group, EBSCO, and Proofpoint (with a master's in between). Most of it has been backend,
+distributed systems, and security infrastructure.
+
 **Q: What's the project you're most proud of?**
 A: Re-architecting our lookalike / brand-impersonation domain detection system at Proofpoint.
 I moved the lookalike-domain crawling onto ECS and rebuilt the logo-matching pipeline on modern

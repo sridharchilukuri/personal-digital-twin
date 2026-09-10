@@ -10,7 +10,7 @@ from collections.abc import Iterator
 
 from core.corpus_loader import load_corpus
 from core.llm_client import LLMClient, LLMError, Message
-from core.prompt import REFUSAL_MARKER, build_system_prompt
+from core.prompt import REFUSAL_MARKER, SCOPE_MARKER, build_system_prompt
 
 __all__ = [
     "load_corpus",
@@ -19,6 +19,7 @@ __all__ = [
     "LLMError",
     "Message",
     "REFUSAL_MARKER",
+    "SCOPE_MARKER",
     "answer",
 ]
 
