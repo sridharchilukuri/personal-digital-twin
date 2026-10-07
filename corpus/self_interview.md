@@ -23,9 +23,10 @@ to hours and cut our annual cloud cost from $3.6M to under $500K. I loved that i
 hard systems problem and a big, measurable business win.
 
 **Q: What technologies do you work with most?**
-A: Go is my primary language, on AWS, with PostgreSQL, Redis, and event-driven architectures.
-I also work in Python, TypeScript, and C#, and I care a lot about observability with
-OpenTelemetry and Splunk.
+A: Go is my primary language. My day-to-day stack is Go, Node.js, and JavaScript on AWS,
+with PostgreSQL, Redshift, Kubernetes, and Docker. I also use Redis and event-driven
+architectures. I work in Python, TypeScript, and C# too, and I care a lot about observability
+with OpenTelemetry and Splunk.
 
 **Q: Tell me about your experience with distributed systems.**
 A: Most of my career has been distributed backend work: a WHOIS API serving millions of daily
