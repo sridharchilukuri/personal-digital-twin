@@ -13,6 +13,13 @@ def client(monkeypatch):
     return TestClient(app_module.app)
 
 
+@pytest.mark.parametrize("path", ["/api/health", "/healthz"])
+def test_health_endpoints(client, path):
+    resp = client.get(path)
+    assert resp.status_code == 200
+    assert resp.json() == {"status": "ok"}
+
+
 def test_chat_streams_reply(client):
     resp = client.post("/api/chat", json={"message": "hello", "history": []})
     assert resp.status_code == 200

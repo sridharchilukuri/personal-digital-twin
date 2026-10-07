@@ -35,9 +35,10 @@ if ("IntersectionObserver" in window) {
   sections.forEach((s) => s && spy.observe(s));
 }
 
-// ---- Live status badge: reflects the real /healthz, not a hard-coded "online" ----
+// ---- Live status badge: reflects the real health check, not a hard-coded "online" ----
+// (/api/health, not /healthz: Cloud Run reserves /healthz and 404s it before it reaches us.)
 const statusEl = document.getElementById("twin-status");
-fetch("/healthz")
+fetch("/api/health")
   .then((r) => {
     if (!r.ok) throw new Error("unhealthy");
   })

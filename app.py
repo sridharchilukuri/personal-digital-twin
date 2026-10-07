@@ -44,6 +44,9 @@ class ChatRequest(BaseModel):
     history: list[ChatTurn] = Field(default_factory=list, max_length=MAX_HISTORY_TURNS)
 
 
+# Cloud Run's front end reserves /healthz on *.run.app (it 404s before reaching the app),
+# so the web UI's status badge uses /api/health. /healthz stays for local and other hosts.
+@app.get("/api/health")
 @app.get("/healthz")
 def healthz() -> dict[str, str]:
     return {"status": "ok"}
