@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sridhar Chilukuri — Staff Engineer &amp; AI Twin</title>
   <meta name="description" content="Sridhar Chilukuri — Staff Software Engineer. Ask my AI twin anything about my work, experience, or interests." />
+  <link rel="canonical" href="https://twin.schilukuri.dev/" />
+  <meta property="og:url" content="https://twin.schilukuri.dev/" />
+  <meta property="og:image" content="https://twin.schilukuri.dev/assets/sridhar.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sridhar Chilukuri — Staff Engineer &amp; AI Twin" />
+  <meta property="og:description" content="Distributed systems, security infrastructure, and agentic AI. Ask my AI twin anything about my work." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1216'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='28' font-weight='700' text-anchor='middle' fill='%235b9dff'%3ESC%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -26,10 +34,12 @@
       <span>Sridhar Chilukuri</span>
     </a>
     <nav class="tabs" aria-label="Sections">
+      <a class="tab-link" href="#expertise">Expertise</a>
       <a class="tab-link" href="#work">Work</a>
       <a class="tab-link" href="#about">About</a>
       <a class="tab-link" href="#contact">Contact</a>
-      <span class="status" title="The twin is live"><span class="dot"></span>twin online</span>
+      <span class="status" id="twin-status" title="Live status of the twin"><span class="dot"></span><span class="status-text">twin online</span></span>
+      <button class="palette-btn" id="palette-open" type="button" aria-label="Open command menu" title="Command menu (Ctrl/Cmd + K)"><kbd>⌘K</kbd></button>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode" title="Toggle light / dark">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
@@ -40,6 +50,7 @@
   <main id="top">
     <!-- HERO: identity + live twin, full width -->
     <section class="hero" id="hero">
+      <div class="aurora" aria-hidden="true"></div>
       <div class="hero-lead">
         <p class="role"><span class="dot dot--sm"></span>Staff Software Engineer at Proofpoint</p>
         <h1>Distributed systems, security infrastructure, and agentic AI.</h1>
@@ -49,6 +60,11 @@
           chat. The twin on the right answers only from what I've actually shared and it
           says so plainly when it doesn't know.
         </p>
+        <div class="hero-links">
+          <a class="pill-link pill-link--primary" href="/assets/Sridhar_Chilukuri_Resume.pdf" download="Sridhar_Chilukuri_Resume.pdf">Résumé ↓</a>
+          <a class="pill-link" href="https://github.com/sridharchilukuri" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="pill-link" href="https://www.linkedin.com/in/sridharchilukuri" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
       </div>
 
       <div class="chat" aria-label="Chat with Sridhar's AI twin">
@@ -60,14 +76,10 @@
         <div id="messages" class="messages">
           <div class="msg assistant">Hi — I'm Sridhar's digital twin. Ask me about his work, projects, skills, or what he's learning right now.</div>
         </div>
-        <div class="suggestions">
-          <button class="chip">What's Sridhar most proud of?</button>
-          <button class="chip">What tech does he work with?</button>
-          <button class="chip">What is he learning right now?</button>
-        </div>
+        <div class="suggestions" id="suggestions"></div>
         <form id="chat-form" class="chat-input">
           <input id="chat-text" type="text" autocomplete="off"
-                 aria-label="Message the twin"
+                 aria-label="Message the twin" maxlength="500"
                  placeholder="Ask the twin a question…" />
           <button id="chat-send" type="submit" aria-label="Send message">Send</button>
         </form>
@@ -82,7 +94,7 @@
           <dd class="metric-label">annual cloud spend, re-architected</dd>
         </div>
         <div class="metric">
-          <dt class="metric-num">1TB+</dt>
+          <dt class="metric-num">10TB+</dt>
           <dd class="metric-label">data processed daily</dd>
         </div>
         <div class="metric">
@@ -94,6 +106,62 @@
           <dd class="metric-label">API latency at scale</dd>
         </div>
       </dl>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section id="expertise" class="section">
+      <div class="section-head">
+        <h2>Expertise</h2>
+        <p class="section-note">Where I go deep, and what I build with.</p>
+      </div>
+
+      <div class="depth">
+        <article class="depth-card">
+          <span class="idx">01</span>
+          <h3>Distributed systems &amp; APIs</h3>
+          <p>Backend services scaled past 100K transactions per second, and a WHOIS API serving millions of daily requests with Redis caching. Set API governance standards across teams.</p>
+          <span class="proof">100K+ tx/s · &lt;100ms</span>
+        </article>
+        <article class="depth-card">
+          <span class="idx">02</span>
+          <h3>Security infrastructure</h3>
+          <p>Tech lead for internet-scale threat detection and a domain takedown platform that automates remediation for enterprise customers.</p>
+          <span class="proof">Thousands of enterprise customers</span>
+        </article>
+        <article class="depth-card">
+          <span class="idx">03</span>
+          <h3>Data pipelines</h3>
+          <p>Real-time, event-driven ingestion of domain, DNS, email and Certificate Transparency signals into a PostgreSQL store that powers company-wide detection.</p>
+          <span class="proof">1B+ records · 10TB+ / day</span>
+        </article>
+        <article class="depth-card">
+          <span class="idx">04</span>
+          <h3>Cloud architecture &amp; cost</h3>
+          <p>Re-architected a detection pipeline onto ECS Fargate with CLIP image embeddings, cutting latency from days to hours while collapsing the AWS bill.</p>
+          <span class="proof">$3.6M → &lt;$500K / yr</span>
+        </article>
+        <article class="depth-card">
+          <span class="idx">05</span>
+          <h3>Technical leadership</h3>
+          <p>Founded and led an org-wide API working group, ran cross-team architecture reviews, and mentored engineers across teams.</p>
+          <span class="proof">4–6 engineering teams</span>
+        </article>
+        <article class="depth-card">
+          <span class="idx">06</span>
+          <h3>Agentic AI</h3>
+          <p>Currently going deep on AI that acts through tools, where distributed-systems thinking meets AI.</p>
+          <span class="proof">Focus area</span>
+        </article>
+      </div>
+
+      <div class="toolkit" aria-label="Daily drivers">
+        <div class="toolkit-row">
+          <h3>Daily drivers</h3>
+          <ul>
+            <li class="core">Go</li><li class="core">Node.js</li><li class="core">JavaScript</li><li class="core">AWS</li><li class="core">PostgreSQL</li><li class="core">Redshift</li><li class="core">Kubernetes</li><li class="core">Docker</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- WORK -->
@@ -108,6 +176,7 @@
             <h3>Proofpoint</h3>
             <p class="role-title">Staff Software Engineer</p>
             <p class="when">Jun 2021 – Present · Broomfield/Erie, CO</p>
+            <button type="button" class="ask-btn" data-ask="Tell me about Sridhar's work at Proofpoint.">Ask the twin →</button>
           </div>
           <ul class="job-points">
             <li>Architected the backend for a domain takedown platform automating threat remediation for thousands of enterprise customers.</li>
@@ -122,6 +191,7 @@
             <h3>EBSCO Information Services</h3>
             <p class="role-title">Senior Software Engineer</p>
             <p class="when">Mar 2019 – Jun 2021 · Boulder, CO</p>
+            <button type="button" class="ask-btn" data-ask="Tell me about Sridhar's work at EBSCO.">Ask the twin →</button>
           </div>
           <ul class="job-points">
             <li>Built secure, real-time license-validation APIs enforcing global subscription rules.</li>
@@ -134,6 +204,7 @@
             <h3>Pertan Group</h3>
             <p class="role-title">Software Engineer</p>
             <p class="when">Apr 2016 – Mar 2019 · Fort Collins, CO</p>
+            <button type="button" class="ask-btn" data-ask="Tell me about Sridhar's work at Pertan Group.">Ask the twin →</button>
           </div>
           <ul class="job-points">
             <li>Delivered mission-critical systems for government and military clients, prioritizing security and reliability (C#, WPF, TypeScript, Angular).</li>
@@ -183,11 +254,22 @@
           <dl class="facts">
             <div><dt>Location</dt><dd>Erie, Colorado</dd></div>
             <div><dt>Languages</dt><dd>English, Telugu</dd></div>
-            <div><dt>Core stack</dt><dd>Go, AWS, PostgreSQL, Event driven Data pipelines</dd></div>
+            <div><dt>Core stack</dt><dd>Go, Node.js, AWS, PostgreSQL, Redshift, Kubernetes</dd></div>
             <div><dt>Learning</dt><dd>Agentic AI engineering</dd></div>
             <div><dt>Outside work</dt><dd>Cricket in summer, skiing in winter, dad to two little girls</dd></div>
           </dl>
         </div>
+      </div>
+    </section>
+
+    <!-- WRITING -->
+    <section id="writing" class="section">
+      <div class="writing">
+        <div>
+          <h2>Writing</h2>
+          <p class="section-note">Notes on distributed systems, security infrastructure, and agentic AI — in the works.</p>
+        </div>
+        <span class="soon"><span class="dot dot--sm"></span>Blog coming soon</span>
       </div>
     </section>
 
@@ -200,7 +282,9 @@
         </div>
         <div class="links">
           <a class="link-btn primary" href="mailto:sridharchilukuri9@gmail.com">Email me</a>
-          <a class="link-btn" href="https://www.linkedin.com/in/sridharchilukuri" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="link-btn" href="/assets/Sridhar_Chilukuri_Resume.pdf" download="Sridhar_Chilukuri_Resume.pdf">Résumé ↓</a>
+          <a class="link-btn" href="https://www.linkedin.com/in/sridharchilukuri" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="link-btn" href="https://github.com/sridharchilukuri" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
     </section>
@@ -209,6 +293,11 @@
   <footer class="foot">
     <span>An agentic AI twin, grounded in a curated corpus. Built by Sridhar Chilukuri.</span>
   </footer>
+
+  <dialog id="palette" class="palette" aria-label="Command menu">
+    <input id="palette-input" type="text" autocomplete="off" placeholder="Jump to, or ask the twin…" aria-label="Search commands" />
+    <ul id="palette-list" role="listbox"></ul>
+  </dialog>
 
   <script src="/app.js"></script>
 </body>

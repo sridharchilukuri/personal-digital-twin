@@ -17,10 +17,11 @@ engineering organizations.
 
 ## Core technologies
 
-- **Languages:** Go, JavaScript, TypeScript, Python, C#, SQL
+- **Languages:** Go, Node.js, JavaScript, TypeScript, Python, C#, SQL
 - **Backend:** REST APIs, gRPC, microservices, event-driven architecture, distributed systems
-- **Cloud & Infra:** AWS Lambda, ECS/Fargate, API Gateway, S3, SQS, SNS, Terraform, Docker, Kubernetes
-- **Data:** PostgreSQL, DynamoDB, Redis
+- **Cloud & Infra:** AWS (including SQS, SNS, S3, Lambda, RDS, EC2, ElastiCache,
+  ECS, ECR, Fargate, CloudWatch, API Gateway), Terraform, Docker, Kubernetes
+- **Data:** PostgreSQL, Redshift, DynamoDB, Redis
 - **Observability:** OpenTelemetry, Splunk, CloudWatch
 - **Security:** Threat intelligence, domain security, brand protection, threat detection & remediation
 

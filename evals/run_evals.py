@@ -41,8 +41,16 @@ def is_refusal(text: str) -> bool:
     return any(sig in low for sig in _REFUSAL_SIGNALS)
 
 
-def _full_answer(question: str) -> str:
-    return "".join(answer(question, []))
+def contains_expected(text: str, expected: list[str] | None) -> bool:
+    """True if no `contains` check is set, or the reply mentions at least one expected term."""
+    if not expected:
+        return True
+    low = text.lower()
+    return any(term.lower() in low for term in expected)
+
+
+def _full_answer(question: str, history: list[dict[str, str]] | None = None) -> str:
+    return "".join(answer(question, history or []))
 
 
 def main() -> int:
@@ -59,15 +67,17 @@ def main() -> int:
     try:
         for case in cases:
             q, expect = case["q"], case["expect"]
-            reply = _full_answer(q)
+            reply = _full_answer(q, case.get("history"))
             refused = is_refusal(reply)
 
             if expect == "grounded":
                 grounded_total += 1
-                if not refused and reply.strip():
-                    grounded_pass += 1
-                else:
+                if refused or not reply.strip():
                     failures.append(f"[grounded→refused] {q}")
+                elif not contains_expected(reply, case.get("contains")):
+                    failures.append(f"[grounded→wrong answer, expected one of {case['contains']}] {q}")
+                else:
+                    grounded_pass += 1
             elif expect == "refuse":
                 refuse_total += 1
                 if refused:
